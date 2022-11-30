@@ -32,14 +32,25 @@ st.markdown("""# Welcome to WaveWatcher!
 ## Done by Nico, Mateo, Miguel and Louis""")
 
 url = "https://oceanbees-xbzgoqiv5a-ew.a.run.app/honey"
-response = requests.get(url = url, stream = True)
-img = Image.open(BytesIO(response.content))
+#response = requests.get(url = url, stream = True)
+#img = Image.open(BytesIO(response.content))
 
-st.image(img)
+#
+my_bar = st.progress(0)
+images_for_prediction = []
 
-#This code calls API 10 times every 10 seconds
-"""while len(y) < 10:
-    response = requests.get(url = url, stream = True)
-    img = Image.open(BytesIO(response.content))
-    y.append(img)
-    sleep(10)"""
+def get_10_images():
+    images_for_prediction.clear()
+    while len(images_for_prediction) < 10:
+        response = requests.get(url = url, stream = True)
+        #img = Image.open(BytesIO(response.content))
+        images_for_prediction.append(response.content)
+        my_bar.progress(len(images_for_prediction)*10)
+        sleep(0.1)
+
+
+
+st.button("Get prediction!", on_click= get_10_images())
+#get_10_images()
+st.image(Image.open(BytesIO(images_for_prediction[2])))
+st.image(Image.open(BytesIO(images_for_prediction[9])))
