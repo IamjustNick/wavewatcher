@@ -1,20 +1,35 @@
+import time
+import numpy as np
+import pandas as pd
+from tensorflow.keras import layers, Sequential, models
+from keras.utils import to_categorical
+from keras.optimizers import Adam
+from keras.callbacks import EarlyStopping
+from keras.applications import efficientnet
+from typing import Tuple, Model
+import cv2 as cv
+import matplotlib.pyplot as plt
+import skimage
+import glob
+import os
+import random
+from PIL import ImageFile
+from sklearn.model_selection import train_test_split
 from colorama import Fore, Style
 
-import time
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 print(Fore.BLUE + "\nLoading tensorflow..." + Style.RESET_ALL)
 start = time.perf_counter()
 
-from tensorflow.keras import Model, Sequential, layers, regularizers, optimizers
-from tensorflow.keras.callbacks import EarlyStopping
+
 
 end = time.perf_counter()
 print(f"\n✅ tensorflow loaded ({round(end - start, 2)} secs)")
 
-from typing import Tuple
 
-import numpy as np
 
-def initialize_model() -> Model:
+def initialize_model():
     """
     Initialize the Neural Network with random weights
     """
@@ -46,7 +61,7 @@ def initialize_model() -> Model:
 
     return model
 
-def compile_model(model, learning_rate=1e-4) -> Model:
+def compile_model(model, learning_rate=1e-4):
     """
     Compile the Neural Network
     """
@@ -57,7 +72,7 @@ def compile_model(model, learning_rate=1e-4) -> Model:
     print("\n✅ model compiled")
     return model
 
-def train_model(model: Model,
+def train_model(model,
                 X: np.ndarray,
                 y: np.ndarray,
                 batch_size=16,
