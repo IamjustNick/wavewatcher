@@ -14,13 +14,33 @@ from typing import Tuple
 
 import numpy as np
 
-def initialize_model(X: np.ndarray) -> Model:
+def initialize_model() -> Model:
     """
     Initialize the Neural Network with random weights
     """
     print(Fore.BLUE + "\nInitialize model..." + Style.RESET_ALL)
 
-    # Your model here
+    n_classes = 3
+    model = models.Sequential()
+    model.add(
+        efficientnet.EfficientNetB7(weights = 'imagenet',
+                                     include_top = False,
+                                     classes = n_classes,
+                                     input_shape = (300, 300, 3))
+    )
+    model.add(layers.GlobalAveragePooling2D())
+    model.add(layers.Flatten())
+    model.add(layers.BatchNormalization())
+    model.add(layers.Dense(256, activation = "relu"))
+    model.add(layers.Dropout(0.2))
+
+    model.add(layers.BatchNormalization())
+    model.add(layers.Dense(256, activation = "relu"))
+    model.add(layers.Dropout(0.2))
+    model.add(layers.BatchNormalization())
+
+    model.add(layers.Dense(n_classes, activation = "softmax"))
+    model.layers[0].trainable = False
 
     print("\n✅ model initialized")
 
@@ -40,9 +60,9 @@ def compile_model(model, learning_rate=1e-4) -> Model:
 def train_model(model: Model,
                 X: np.ndarray,
                 y: np.ndarray,
-                batch_size=64,
-                patience=2,
-                validation_split=0.3,
+                batch_size=16,
+                patience=15,
+                validation_split=0.2,
                 validation_data=None) -> Tuple[Model, dict]:
     """
     Fit model and return a the tuple (fitted_model, history)
@@ -51,7 +71,8 @@ def train_model(model: Model,
     print(Fore.BLUE + "\nTrain model..." + Style.RESET_ALL)
 
     es = EarlyStopping(monitor="val_loss",
-                       patience=patience,
+                       mode = "min",
+                       patience= patience,
                        restore_best_weights=True,
                        verbose=0)
 
@@ -59,7 +80,7 @@ def train_model(model: Model,
                         y,
                         validation_split=validation_split,
                         validation_data=validation_data,
-                        epochs=100,
+                        epochs=60,
                         batch_size=batch_size,
                         callbacks=[es],
                         verbose=0)
@@ -71,7 +92,7 @@ def train_model(model: Model,
 def evaluate_model(model: Model,
                    X: np.ndarray,
                    y: np.ndarray,
-                   batch_size=64) -> Tuple[Model, dict]:
+                   batch_size=16) -> Tuple[Model, dict]:
     """
     Evaluate trained model performance on dataset
     """

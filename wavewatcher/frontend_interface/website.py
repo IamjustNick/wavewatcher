@@ -24,7 +24,7 @@ def add_bg_from_local(image_file):
     """,
     unsafe_allow_html=True
     )
-add_bg_from_local('/home/mateuszcezary/code/iamjustnick/wavewatcher/frontend/5423150-beach-water-sea-wave-ocean-sand-sandy-wafe-looking-down-from-above-tide-ripple-seashore-shoreline-shore-split-symmetrical-yellow-sand-crashing-wafe-clear-water-free-pictures.jpg')
+add_bg_from_local("backgroundphoto.jpg")
 
 
 #This code just calls API and shows the picture
