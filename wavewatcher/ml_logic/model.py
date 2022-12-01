@@ -6,7 +6,7 @@ from keras.utils import to_categorical
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping
 from keras.applications import efficientnet
-from typing import Tuple, Model
+from typing import Tuple
 import cv2 as cv
 import matplotlib.pyplot as plt
 import skimage
@@ -78,7 +78,7 @@ def train_model(model,
                 batch_size=16,
                 patience=15,
                 validation_split=0.2,
-                validation_data=None) -> Tuple[Model, dict]:
+                validation_data=None):
     """
     Fit model and return a the tuple (fitted_model, history)
     """
@@ -104,10 +104,10 @@ def train_model(model,
 
     return model, history
 
-def evaluate_model(model: Model,
+def evaluate_model(model,
                    X: np.ndarray,
                    y: np.ndarray,
-                   batch_size=16) -> Tuple[Model, dict]:
+                   batch_size=16):
     """
     Evaluate trained model performance on dataset
     """
