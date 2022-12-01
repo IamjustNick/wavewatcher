@@ -5,6 +5,8 @@ import pandas as pd
 from colorama import Fore, Style
 import zipfile
 
+#from google.colab import auth
+#auth.authenticate_user()
 
 def download_blob(bucket_name, parent_blob: str):
     """Downloads a blob from the bucket."""
