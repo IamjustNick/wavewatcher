@@ -1,5 +1,5 @@
 #This package processes images as they come.
-from params import reshape_size
+from wavewatcher.ml_logic.params import reshape_size
 from colorama import Fore, Style
 import time
 from tensorflow.keras import Model, Sequential, layers, regularizers, optimizers
@@ -100,7 +100,7 @@ def preprocess_image_main(image,reshape_size=reshape_size):
         return images
 
 
-def preprocess_image_lite(image):
+def preprocess_image_lite(image, reshape_size=reshape_size):
     if image.shape == (570, 1015):
         cropped = image[250:-100,100:]
     elif image.shape == (582, 1034):
