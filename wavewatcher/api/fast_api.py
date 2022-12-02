@@ -1,13 +1,35 @@
 from datetime import datetime
 import pandas as pd
 from fastapi import FastAPI
+from tensorflow.keras import models
+import numpy as np
+import requests
 from fastapi.middleware.cors import CORSMiddleware
-from taxifare.interface.main import pred
-from taxifare.ml_logic.preprocessor import preprocess_features
-from taxifare.ml_logic.registry import load_model
+
+
+#IMPORTS
+from wavewatcher.utilities(move_later_fix_imports) import get_images
+from wavewatcher.utilities(move_later_fix_imports) import majority_voting
+from wavewatcher.utilities(move_later_fix_imports) import preprocess_image_lite, majority_voting, get_images, predictions_time
+
+# model state
+from tensorflow.python.lib.io import file_io
+from keras.models import load_model
+
+# Question, will it run from a docker image?
+
 
 app = FastAPI()
-app.state.model = load_model()
+
+model_file = file_io.FileIO('gs://waves_surfer_data/modelb7.h5', mode='rb')
+temp_model_location = './temp_model.h5'
+temp_model_file = open(temp_model_location, 'wb')
+temp_model_file.write(model_file.read())
+temp_model_file.close()
+model_file.close()
+app.state.model = load_model(temp_model_location)
+
+# I don't know exactly what is the middleware but it seems neccesary
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,28 +39,31 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+#1 get images
+
+images = get_images(30)
+images = images[10:]
+
+outcomes = predictions_time(images)
+
+
+results =app.state.model.predict(outcomes)
+
+def printed_result(results):
+    {}
+    outcome = majority_voting(results)
+
+
+if __name__ == "__main__":
+    tik = time.perf_counter()
+    images = get_images(number = 5)
+    tak = time.perf_counter()
+    print(f"Process completed within {tak-tik:.2f} second(s)!")
 # http://127.0.0.1:8000/predict?pickup_datetime=2012-10-06 12:10:20&pickup_longitude=40.7614327&pickup_latitude=-73.9798156&dropoff_longitude=40.6513111&dropoff_latitude=-73.8803331&passenger_count=2
 @app.get("/predict")
-def predict(pickup_datetime: datetime,  # 2013-07-06 17:18:00
-            pickup_longitude: float,    # -73.950655
-            pickup_latitude: float,     # 40.783282
-            dropoff_longitude: float,   # -73.984365
-            dropoff_latitude: float,    # 40.769802
-            passenger_count: int):      # 1
-    """
-    we use type hinting to indicate the data types expected
-    for the parameters of the function
-    FastAPI uses this information in order to hand errors
-    to the developpers providing incompatible parameters
-    FastAPI also provides variables of the expected data type to use
-    without type hinting we need to manually convert
-    the parameters of the functions which are all received as strings
-    """
-    key = pickup_datetime
-    X = pd.DataFrame([[key, pickup_datetime, float(pickup_longitude),float(pickup_latitude),float(dropoff_longitude),float(dropoff_latitude),int(passenger_count)]], columns=["key","pickup_datetime","pickup_longitude","pickup_latitude","dropoff_longitude","dropoff_latitude","passenger_count"])
-    X_pred = preprocess_features(X)
-    result = app.state.model.predict(X_pred)
-    return {"fare_amount":float(result[0][0])}
+def predict():
+    images = get_images()
+
 
 
 

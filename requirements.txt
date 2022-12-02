@@ -19,6 +19,9 @@ pytest
 yapf
 
 # API
+fastapi
+#do we need uvicorn?
+uvicorn
 gcsfs
 google-cloud-storage
 mlflow
