@@ -1,18 +1,4 @@
-d!"
-
-COPY test.py test.py
-RUN pip install opencv-python
-RUN python test.py
-
-COPY requirements.txt requirements.txt
-COPY setup.py setup.py
-COPY wavewatcher/api wavewatcher/api
-COPY wavewatcher/__init__.py wavewatcher/__init__.py
-
-RUN pip install --upgrade pip
-RUN pip install .
-
-CMD uvicorn wavewatcher.api.fast_api:FROM tensorflow/tensorflow:latest
+FROM tensorflow/tensorflow:latest
 
 #WORKDIR /src
 
@@ -32,4 +18,18 @@ RUN apt-get install \
   'libxext6'  -y
 
 
-RUN echo "Hello Worlapp --host 0.0.0.0 --port $PORT
+RUN echo "Hello World!"
+
+COPY test.py test.py
+RUN pip install opencv-python
+RUN python test.py
+
+COPY requirements.txt requirements.txt
+COPY setup.py setup.py
+COPY wavewatcher/api wavewatcher/api
+COPY wavewatcher/__init__.py wavewatcher/__init__.py
+
+RUN pip install --upgrade pip
+RUN pip install .
+
+CMD uvicorn wavewatcher.api.fast_api:app --host 0.0.0.0 --port $PORT
