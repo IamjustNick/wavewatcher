@@ -1,5 +1,5 @@
 import numpy as np
-import cv2 as cv
+import cv2
 import requests
 from PIL import Image
 from io import BytesIO
@@ -16,11 +16,11 @@ def get_images(number : int):
             print(response.status_code)
             #will investigate
             #img = np.frombuffer(response.content , dtype = np.uint8)
-            #success , img_encoded = cv2.imencode(".png" , img)
+            #success , img_encoded = cv22.imencode(".png" , img)
 
             img = Image.open(BytesIO(response.content))
             arr_img = np.array(img)
-            arr_img = cv.cvtColor( arr_img , cv.COLOR_RGBA2GRAY)
+            arr_img = cv2.cvtColor( arr_img , cv2.COLOR_RGBA2GRAY)
             imgs.append(arr_img)
             print("all good here")
         except Exception:
@@ -39,11 +39,11 @@ def preprocess_image_lite(image, reshape_size=300):
         cropped = image[350:-100,:]
     else:
         cropped = image[150:,:]
-    img = cv.resize(cropped,(reshape_size,reshape_size),interpolation = cv.INTER_AREA)
-    img = cv.medianBlur(img,5)
-    ret,th1 = cv.threshold(img,127,255,cv.THRESH_BINARY)
-    th2 = cv.adaptiveThreshold(img,255,cv.ADAPTIVE_THRESH_MEAN_C,\
-                cv.THRESH_BINARY,11,2)
+    img = cv2.resize(cropped,(reshape_size,reshape_size),interpolation = cv2.INTER_AREA)
+    img = cv2.medianBlur(img,5)
+    ret,th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
+    th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+                cv2.THRESH_BINARY,11,2)
    #This change is unique to inputs from an online camera
     images =[th1,img,(th2/255)]
 

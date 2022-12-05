@@ -4,30 +4,25 @@ from fastapi import FastAPI
 from tensorflow.keras import models
 import numpy as np
 import requests
+from http import HTTPStatus
 from fastapi.middleware.cors import CORSMiddleware
-
+import logging
+from datetime import datetime
 
 #IMPORTS
-from wavewatcher.utilities(move_later_fix_imports) import get_images
-from wavewatcher.utilities(move_later_fix_imports) import majority_voting
-from wavewatcher.utilities(move_later_fix_imports) import preprocess_image_lite, majority_voting, get_images, predictions_time
+from wavewatcher.api.utilities import get_images
+from wavewatcher.api.utilities import majority_voting
+from wavewatcher.api.utilities import preprocess_image_lite, majority_voting, get_images, predictions_time
 
 # model state
 from tensorflow.python.lib.io import file_io
 from keras.models import load_model
 
-# Question, will it run from a docker image?
+# Question, will it run from a docker image? : Yes!
 
-
-app = FastAPI()
-
-model_file = file_io.FileIO('gs://waves_surfer_data/modelb7.h5', mode='rb')
-temp_model_location = './temp_model.h5'
-temp_model_file = open(temp_model_location, 'wb')
-temp_model_file.write(model_file.read())
-temp_model_file.close()
-model_file.close()
-app.state.model = load_model(temp_model_location)
+logging.basicConfig(level = logging.INFO ,
+                    format = "%(message)s")
+app = FastAPI(title = "Wavewatcher")
 
 # I don't know exactly what is the middleware but it seems neccesary
 
@@ -39,34 +34,63 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-#1 get images
 
-images = get_images(30)
-images = images[10:]
+@app.on_event("startup")
+async def startup_event():
+    then = datetime.now()
+    logging.info("Buenos Dias!")
+    model_file = file_io.FileIO('gs://waves_surfer_data/modelb7.h5', mode='rb')
+    temp_model_location = './temp_model.h5'
+    temp_model_file = open(temp_model_location, 'wb')
+    temp_model_file.write(model_file.read())
+    temp_model_file.close()
+    model_file.close()
+    app.state.model = load_model(temp_model_location)
+    now = datetime.now()
+    total_startup_seconds = round((now - then).total_seconds(),2)
+    logging.info(f"Model has succesfully started within {total_startup_seconds} second(s)!")
 
-outcomes = predictions_time(images)
-
-
-results =app.state.model.predict(outcomes)
-
-def printed_result(results):
-    {}
-    outcome = majority_voting(results)
-
-
-if __name__ == "__main__":
-    tik = time.perf_counter()
-    images = get_images(number = 5)
-    tak = time.perf_counter()
-    print(f"Process completed within {tak-tik:.2f} second(s)!")
-# http://127.0.0.1:8000/predict?pickup_datetime=2012-10-06 12:10:20&pickup_longitude=40.7614327&pickup_latitude=-73.9798156&dropoff_longitude=40.6513111&dropoff_latitude=-73.8803331&passenger_count=2
-@app.get("/predict")
-def predict():
-    images = get_images()
-
-
+@app.on_event("shutdown")
+async def shutdown_event():
+    logging.info("Goodbye!")
 
 
 @app.get("/")
 def root():
-    return {'greeting': 'Hello'}
+    """Health Check"""
+    return {"greetings": "Hello",
+            "status" : HTTPStatus.OK,
+            "data": {}}
+
+
+@app.get("/predict")
+async def predict(num_images : int = 1) -> dict:
+    images = get_images(num_images)
+    sequence = ["Chaotic","Good","Flat"]
+    predictions = []
+
+    index = 0
+    indexes_to_remove = []
+    for img in images:
+        _, pixel_counts = np.unique(img, return_counts=True)
+        if pixel_counts[0] > 1000:
+            indexes_to_remove.append(index)
+        index += 1
+
+    filtered_images = np.delete(images, indexes_to_remove, axis=0)
+    del images
+    processed_imgs = []
+
+    for image in filtered_images:
+        processed_img = np.array(preprocess_image_lite(image))
+        processed_img = processed_img.reshape(1,*processed_img.shape[::-1])
+        processed_imgs.append(processed_img)
+
+        prediction = app.state.model.predict(processed_img)
+        prediction = sequence[ np.argmax(prediction) ]
+        predictions.append(prediction)
+
+
+    counts = [predictions.count(cat) for cat in sequence]
+    max_index = counts.index(max(counts))
+    return {"prediction" : sequence[max_index]}
