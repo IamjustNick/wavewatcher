@@ -20,9 +20,7 @@ RUN apt-get install \
 
 RUN echo "Hello World!"
 
-COPY test.py test.py
 RUN pip install opencv-python
-RUN python test.py
 
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
@@ -33,3 +31,5 @@ RUN pip install --upgrade pip
 RUN pip install .
 
 CMD uvicorn wavewatcher.api.fast_api:app --host 0.0.0.0 --port $PORT
+
+
