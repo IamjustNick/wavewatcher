@@ -34,7 +34,7 @@ def add_bg_from_local(image_file):
 add_bg_from_local('backgroundimage.png')
 
 
-
+#what the hell
 #---------- Animations from LottieFiles ------------------------------------
 # def load_lottieurl(url: str):
 #     r = requests.get(url)
