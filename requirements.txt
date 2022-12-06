@@ -10,24 +10,22 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+tensorflow
+opencv-python
 
-# tests/linter
-black
-coverage
-flake8
-pytest
-yapf
 
 # API
+pydantic
+starlette
+fastapi
+Pillow
+#do we need uvicorn?
+uvicorn
 gcsfs
-google-cloud-storage==2.6.0
-mlflow
+
 s3fs
 
 # utilities
 six>=1.14
 joblib
-memoized-property
-termcolor
 
-streamlit-autorefresh-0.0.1
