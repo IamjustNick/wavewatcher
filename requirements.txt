@@ -3,32 +3,25 @@ pip>=9
 setuptools>=26
 twine
 wheel>=0.29
-
-#comment
-
 # data science
 numpy
 pandas
 scikit-learn
-
-# tests/linter
-black
-coverage
-flake8
-pytest
-yapf
-
+tensorflow
+opencv-python
+matplotlib
 # API
+pydantic
+starlette
+fastapi
+Pillow
+uvicorn
 gcsfs
-google-cloud-storage==2.6.0
-mlflow
+google-cloud-storage
 s3fs
-
 # utilities
+requests
+requires.io
 six>=1.14
 joblib
-memoized-property
-termcolor
 
-streamlit-autorefresh-0.0.1
-streamlit-lottie
