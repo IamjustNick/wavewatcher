@@ -22,9 +22,10 @@ Pillow
 #do we need uvicorn?
 uvicorn
 gcsfs
-google-cloud-storage
+
 s3fs
 
 # utilities
 six>=1.14
 joblib
+
