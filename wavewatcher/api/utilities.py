@@ -5,7 +5,6 @@ from PIL import Image
 from io import BytesIO
 import numpy as np
 
-
 def get_images(number : int):
     #Calling the api several times
     imgs = []
@@ -41,38 +40,10 @@ def preprocess_image_lite(image, reshape_size=300):
         cropped = image[150:,:]
     img = cv2.resize(cropped,(reshape_size,reshape_size),interpolation = cv2.INTER_AREA)
     img = cv2.medianBlur(img,5)
-    ret,th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
+    _ ,th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
     th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
                 cv2.THRESH_BINARY,11,2)
-   #This change is unique to inputs from an online camera
-    images =[th1,img,(th2/255)]
-
+   # No normalization
+    images =[th1,img,th2]
+    images = np.array(images).T
     return images
-
-
-
-def majority_voting(predictions):
-    labels = {0:"Chaotic" , 1:"Good",2:"Flat"}
-    _ , counts = np.unique(predictions , return_counts=True)
-    return labels.get(np.argmax(counts))
-
-def return_outcome(chaotic,good,flat):
-    if flat >chaotic and flat > good:
-        return 2
-    elif chaotic > flat and chaotic > good:
-        return 0
-    elif good > flat and good > chaotic:
-        return 1
-    else:
-        return "invalid"
-
-def predictions_time(model, results):
-    processed_images = []
-    outcomes = []
-    for result in results:
-        proc = preprocess_image_lite(result, 300)
-        processed_images.append(np.array([(proc)]).reshape(1,300,300,3))
-    for image in processed_images:
-        prediction = model.predict(image)
-        outcomes.append(prediction)
-        return outcomes
