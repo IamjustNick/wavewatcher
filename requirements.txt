@@ -31,3 +31,4 @@ memoized-property
 termcolor
 
 streamlit-autorefresh-0.0.1
+streamlit-lottie
