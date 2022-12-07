@@ -47,6 +47,10 @@ csv = pd.read_csv('gs://waves_surfer_data/prediction/forecast.csv')
 bucket_name = "waves_surfer_data"
 file_path = "prediction/forecast.csv"
 
+hour = csv.iloc[0,2]
+hour2 = datetime.strptime(hour, '%H:%M:%S')
+hour3 = str(hour2 + timedelta(hours=1)).split(" ")[1]
+
 content = read_file(bucket_name, file_path)
 
 #Getting a dictionary from a CSV file that is inside our Google bucket
@@ -96,7 +100,7 @@ if columns[0].button("PREDICTION FOR PATOS"):
     prediction = response.json()
     final_message(prediction['prediction'])
 else:
-    columns[0].markdown(f"<span style='color:white; font-size:20px'><b>The last prediction at: {csv.iloc[0,2]}</b></span>"
+    columns[0].markdown(f"<span style='color:white; font-size:20px'><b>The last prediction at: {hour3}</b></span>"
                     f"<p><span style='color:white; font-size:20px'><b>How were the waves: {csv.iloc[0,1]}</b></span></p>"
                     , unsafe_allow_html=True)
 
