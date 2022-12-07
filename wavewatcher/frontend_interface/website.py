@@ -95,10 +95,10 @@ if columns[0].button("PREDICTION FOR PATOS"):
     response = requests.get(api)
     prediction = response.json()
     final_message(prediction['prediction'])
-# else:
-#     columns[0].markdown(f"<span style='color:white; font-size:20px'><b>The last prediction at: {csv.iloc[0,2]}</b></span>"
-#                     f"<p><span style='color:white; font-size:20px'><b>How were the waves: {csv.iloc[0,1]}</b></span></p>"
-#                     , unsafe_allow_html=True)
+else:
+    columns[0].markdown(f"<span style='color:white; font-size:20px'><b>The last prediction at: {csv.iloc[0,2]}</b></span>"
+                    f"<p><span style='color:white; font-size:20px'><b>How were the waves: {csv.iloc[0,1]}</b></span></p>"
+                    , unsafe_allow_html=True)
 
 columns[1].image(new_zarautz)
 with columns[1]:
