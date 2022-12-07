@@ -24,7 +24,7 @@ def add_bg_from_local(image_file):
     """,
     unsafe_allow_html=True
     )
-add_bg_from_local('backgroundimage.png')
+add_bg_from_local('//wavewatcher/wavewatcher/frontend_interface/backgroundimage.png')
 
 
 #----------Credentials for using Google Cloud storage -------------------------
