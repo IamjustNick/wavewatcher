@@ -73,13 +73,13 @@ def final_message(outcome):
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
 
 
-patos = Image.open("/patos.jpg")
+patos = Image.open("wavewatcher/frontend_interface/patos.jpg")
 new_patos = patos.resize((600, 400))
 
-zarautz =Image.open("/zarautz.jpg")
+zarautz =Image.open("wavewatcher/frontend_interface/zarautz.jpg")
 new_zarautz = zarautz.resize((600, 400))
 
-hawai = Image.open("/hawai.jpg")
+hawai = Image.open("wavewatcher/frontend_interface//hawai.jpg")
 new_hawai = hawai.resize((600, 400))
 #----------Division of the page into 3 columns by Louis ------------------------
 
