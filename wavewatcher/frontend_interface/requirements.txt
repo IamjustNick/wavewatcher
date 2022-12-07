@@ -21,4 +21,4 @@ pybase64
 
 requires.io
 google-auth
-google-cloud
+google-cloud-storage
