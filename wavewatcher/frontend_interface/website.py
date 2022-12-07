@@ -74,21 +74,21 @@ def final_message(outcome):
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
 
 #from url
-patos = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/patos.jpg")
-patos2 = st.image.open(patos)
-new_patos = patos2.resize((600, 400))
+new_patos = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/patos.jpg")
+#patos2 = st.image.open(patos)
+#new_patos = patos2.resize((600, 400))
 
 #image = Image.open(bottom_image)
 #    new_image = image.resize((600, 400))
 #    st.image(new_image
 
-zarautz = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/zarautz.jpg")
-zarautz2 = st.image.open(zarautz)
-new_zarautz = zarautz2.resize((600, 400))
+new_zarautz = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/zarautz.jpg")
+#zarautz2 = st.image.open(zarautz)
+#new_zarautz = zarautz2.resize((600, 400))
 
-hawai = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/hawai.jpg")
-hawai2 = st.image.open(hawai)
-new_hawai = hawai2.resize((600, 400))
+new_hawai = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/hawai.jpg")
+#hawai2 = st.image.open(hawai)
+#new_hawai = hawai2.resize((600, 400))
 #----------Division of the page into 3 columns by Louis ------------------------
 
 
