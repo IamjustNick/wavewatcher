@@ -63,7 +63,7 @@ st.markdown("""# <span style='color:yellow; font-size:90px; font-family:Graphic'
 #----------Code for an API request done by Louis ------------------------------
 api = "https://wavewatcher-uy3hohwooq-ez.a.run.app/predict?num_images=15"
 
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def final_message(outcome):
     if outcome == "Good":
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves!</span>", unsafe_allow_html=True)
