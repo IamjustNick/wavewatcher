@@ -63,16 +63,16 @@ st.markdown("""# <span style='color:yellow; font-size:90px; font-family:Graphic'
 #----------Code for an API request done by Louis ------------------------------
 api = "https://wavewatcher-uy3hohwooq-ez.a.run.app/predict?num_images=15"
 
-@st.cache(suppress_st_warning=True)
-def final_message(outcome):
-    if outcome == "Good":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves!</span>", unsafe_allow_html=True)
-    elif outcome == "Chaotic":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon!</span>", unsafe_allow_html=True)
-    elif outcome == "Flat":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world </span>", unsafe_allow_html=True)
-    else:
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Current conditions could not be checked atm.</span>", unsafe_allow_html=True)
+# @st.cache(suppress_st_warning=True)
+# def final_message(outcome):
+#     if outcome == "Good":
+#         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves!</span>", unsafe_allow_html=True)
+#     elif outcome == "Chaotic":
+#         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon!</span>", unsafe_allow_html=True)
+#     elif outcome == "Flat":
+#         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world </span>", unsafe_allow_html=True)
+#     else:
+#         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Current conditions could not be checked atm.</span>", unsafe_allow_html=True)
         
 
 
@@ -94,7 +94,8 @@ if columns[0].button("PREDICTION FOR PATOS"):
     st.markdown(f"""<span style='color:yellow; font-size:40px'><b>Assessing conditions... (don't worry, it may take some time) </b></span>""", unsafe_allow_html=True)
     response = requests.get(api)
     prediction = response.json()
-    final_message(prediction['prediction'])
+    print(prediction["prediction"])
+    #final_message(prediction['prediction'])
 else:
     columns[0].markdown(f"<span style='color:white; font-size:20px'><b>The last prediction at: {csv.iloc[0,2]}</b></span>"
                     f"<p><span style='color:white; font-size:20px'><b>How were the waves: {csv.iloc[0,1]}</b></span></p>"
