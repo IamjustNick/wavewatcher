@@ -68,7 +68,7 @@ def final_message(outcome):
     if outcome == "Good":
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves!</span>", unsafe_allow_html=True)
     elif outcome == "Chaotic":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon!:</span>", unsafe_allow_html=True)
+        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon!</span>", unsafe_allow_html=True)
     elif outcome == "Flat":
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world </span>", unsafe_allow_html=True)
     else:
