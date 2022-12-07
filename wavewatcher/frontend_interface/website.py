@@ -66,11 +66,14 @@ api = "https://wavewatcher-uy3hohwooq-ez.a.run.app/predict?num_images=15"
 @st.cache(suppress_st_warning=True)
 def final_message(outcome):
     if outcome == "Good":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves! :ocean:</span>", unsafe_allow_html=True)
-    if outcome == "Chaotic":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon! :no_entry:</span>", unsafe_allow_html=True)
-    if outcome == "Flat":
-        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
+        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Cowabunga!! Today is a great day to rip some waves!</span>", unsafe_allow_html=True)
+    elif outcome == "Chaotic":
+        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Too gnarly conditions to surf now my dudes and dudettes. Better waves soon!:</span>", unsafe_allow_html=True)
+    elif outcome == "Flat":
+        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world </span>", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>Current conditions could not be checked atm.</span>", unsafe_allow_html=True)
+        
 
 
 patos = Image.open("wavewatcher/frontend_interface/patos.jpg")
