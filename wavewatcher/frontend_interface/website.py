@@ -75,18 +75,20 @@ def final_message(outcome):
 
 #from url
 patos = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/patos.jpg")
-patos2 = Image.open(patos)
+patos2 = st.Image.open(patos)
 new_patos = patos2.resize((600, 400))
 
 #image = Image.open(bottom_image)
 #    new_image = image.resize((600, 400))
 #    st.image(new_image
 
-zarautz = Image.open("zarautz.jpg")
-new_zarautz = zarautz.resize((600, 400))
+zarautz = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/zarautz.jpg")
+zarautz2 = st.Image.open(zarautz)
+new_zarautz = zarautz2.resize((600, 400)))
 
-hawai = Image.open("hawai.jpg")
-new_hawai = hawai.resize((600, 400))
+hawai = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/hawai.jpg")
+hawai2 = st.Image.open(hawai)
+new_hawai = hawai2.resize((600, 400))
 #----------Division of the page into 3 columns by Louis ------------------------
 
 
