@@ -74,8 +74,13 @@ def final_message(outcome):
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
 
 #from url
-patos = Image.open("patos.jpg")
-new_patos = patos.resize((600, 400))
+patos = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/patos.jpg")
+patos2 = Image.open(patos)
+new_patos = patos2.resize((600, 400))
+
+#image = Image.open(bottom_image)
+#    new_image = image.resize((600, 400))
+#    st.image(new_image
 
 zarautz = Image.open("zarautz.jpg")
 new_zarautz = zarautz.resize((600, 400))
