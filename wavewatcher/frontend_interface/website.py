@@ -84,7 +84,7 @@ new_patos = patos2.resize((600, 400))
 
 zarautz = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/zarautz.jpg")
 zarautz2 = st.Image.open(zarautz)
-new_zarautz = zarautz2.resize((600, 400)))
+new_zarautz = zarautz2.resize((600, 400))
 
 hawai = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/hawai.jpg")
 hawai2 = st.Image.open(hawai)
