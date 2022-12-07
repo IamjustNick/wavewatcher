@@ -24,7 +24,7 @@ def add_bg_from_local(image_file):
     """,
     unsafe_allow_html=True
     )
-add_bg_from_local('frontend_interface/backgroundimage.png')
+add_bg_from_local('backgroundimage.png')
 
 
 #----------Credentials for using Google Cloud storage -------------------------
@@ -74,13 +74,13 @@ def final_message(outcome):
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
 
 
-patos = Image.open("frontend_interface/patos.jpg")
+patos = Image.open("patos.jpg")
 new_patos = patos.resize((600, 400))
 
-zarautz =Image.open("frontend_interface/zarautz.jpg")
+zarautz =Image.open("zarautz.jpg")
 new_zarautz = zarautz.resize((600, 400))
 
-hawai = Image.open("frontend_interface/hawai.jpg")
+hawai = Image.open("hawai.jpg")
 new_hawai = hawai.resize((600, 400))
 #----------Division of the page into 3 columns by Louis ------------------------
 
