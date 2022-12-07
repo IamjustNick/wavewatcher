@@ -113,7 +113,7 @@ with columns[1]:
 
 columns[2].image(new_hawai)
 with columns[2]:
-    if columns[2].button("PREDICTION FOR HAWAI"):
+    if columns[2].button("PREDICTION FOR PIPE (HAWAII)"):
         st.markdown(f"""<span style='color:white; font-size:20px'><b> :rotating_light: :construction: :rotating_light::construction:  <span style='color:white'> Under Construction </span> :rotating_light: :construction: :rotating_light:</b></span>
         """, unsafe_allow_html=True)
         
