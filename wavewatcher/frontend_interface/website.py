@@ -10,21 +10,21 @@ from google.oauth2 import service_account
 from google.cloud import storage
 
 #----------Function for adding a background image------------------------------
-def add_bg_from_url():
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
     st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background-image: url("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/backgroundimage.png");
-             background-attachment: fixed;
-             background-size: cover
-         }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
-
-add_bg_from_url()
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+add_bg_from_local('backgroundimage.png')
 
 
 #----------Credentials for using Google Cloud storage -------------------------
@@ -73,22 +73,15 @@ def final_message(outcome):
     if outcome == "Flat":
         st.markdown(f"<span style='color:white; font-size:40px; font-family:Monaco'>No waves at the moment, however do not worry, there are a million waves in the world :moyai: </span>", unsafe_allow_html=True)
 
-#from url
-new_patos = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/patos.jpg")
-#patos2 = st.image.open(patos)
-#new_patos = patos2.resize((600, 400))
 
-#image = Image.open(bottom_image)
-#    new_image = image.resize((600, 400))
-#    st.image(new_image
+patos = Image.open("//wavewatcher/wavewatcher/frontend_interface/patos.jpg")
+new_patos = patos.resize((600, 400))
 
-new_zarautz = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/zarautz.jpg")
-#zarautz2 = st.image.open(zarautz)
-#new_zarautz = zarautz2.resize((600, 400))
+zarautz =Image.open("//wavewatcher/wavewatcher/frontend_interface/zarautz.jpg")
+new_zarautz = zarautz.resize((600, 400))
 
-new_hawai = st.image("https://github.com/IamjustNick/wavewatcher/blob/master/wavewatcher/frontend_interface/hawai.jpg")
-#hawai2 = st.image.open(hawai)
-#new_hawai = hawai2.resize((600, 400))
+hawai = Image.open("//wavewatcher/wavewatcher/frontend_interface/hawai.jpg")
+new_hawai = hawai.resize((600, 400))
 #----------Division of the page into 3 columns by Louis ------------------------
 
 
