@@ -36,12 +36,12 @@ client = storage.Client(credentials=credentials)
 #---------- Retriving contents from csv file in Google Cloud Storage ----------
 
 #Uses st.experimental_memo to only rerun when the query changes or after 1 hour
-@st.experimental_memo(ttl=3600)
-def read_file(bucket_name, file_path):
-    bucket = client.bucket(bucket_name)
-    #Content is retrived as a string
-    content = bucket.blob(file_path).download_as_string().decode("utf-8")
-    return content
+# @st.experimental_memo(ttl=3600)
+# def read_file(bucket_name, file_path):
+#     bucket = client.bucket(bucket_name)
+#     #Content is retrived as a string
+#     content = bucket.blob(file_path).download_as_string().decode("utf-8")
+#     return content
 
 
 csv = pd.read_csv('gs://waves_surfer_data/prediction/forecast.csv')
@@ -52,7 +52,7 @@ hour = csv.iloc[0,2]
 hour2 = datetime.strptime(hour, '%H:%M:%S')
 hour3 = str(hour2 + timedelta(hours=1)).split(" ")[1]
 
-content = read_file(bucket_name, file_path)
+# content = read_file(bucket_name, file_path)
 
 #Getting a dictionary from a CSV file that is inside our Google bucket
 # dict1 = {}
