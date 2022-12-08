@@ -228,9 +228,9 @@ async def main():
             df.iloc[:98] = df.iloc[1:99]
             df.reset_index(drop=True , inplace=True)
             df.iloc[-1] = new_data
-            df.to_csv("wave_data.csv", index=False, mode="w+")
+            df.to_csv(os.path.join(os.path.dirname(__file__) , "wave_data.csv"), index=False, mode="w+")
         else:
-            pd.DataFrame(data , index=[0]).to_csv("wave_data.csv",
+            pd.DataFrame(data , index=[0]).to_csv(os.path.join(os.path.dirname(__file__) , "wave_data.csv"),
                                                     index=False,
                                                     header=None,
                                                     mode="a+")
