@@ -8,7 +8,7 @@ import numpy as np
 def get_images(number : int):
     #Calling the api several times
     imgs = []
-    url = "https://oceanbees-xbzgoqiv5a-ew.a.run.app/honey"
+    url = "https://oceans-uy3hohwooq-no.a.run.app/honey"
     for _ in range(number):
         try:
             response = requests.get(url = url)
