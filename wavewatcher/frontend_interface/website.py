@@ -20,7 +20,7 @@ import json
 import plotly.graph_objects as go
 
 timezone = pytz.timezone("Europe/Madrid")
-base_url = "https://wavewatcher-uy3hohwooq-ez.a.run.app/predict"
+base_url = "https://oceans-uy3hohwooq-uc.a.run.app/predict"
 
 if "past_data" not in st.session_state:
     st.session_state["past_data"] = pd.DataFrame()
