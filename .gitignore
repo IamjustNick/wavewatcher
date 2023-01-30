@@ -1,0 +1,10 @@
+.egg-info
+.coverage
+.ipynb_checkpoints
+.DS_Store
+raw_data/
+.csv
+/__pycache__/
+.env
+/test_images
+/zipped_images
